@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Tương Tác - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --secondary-color: #FDCB6E;
+            --accent-color: #00C9A7;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --text-dark: #2D3436;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', 'Nunito', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            position: relative;
+            padding: 20px 10px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.18;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M12 12l2 2-2 2-2-2zm20 8c2 0 3-1 3-3s-1-3-3-3-3 1-3 3 1 3 3 3zm15 5l2 3 3 2-3 2-2 3-2-3-3-2 3-2zm-6 20c1.5 0 2.5-1 2.5-2.5S32.5 30 31 30s-2.5 1-2.5 2.5 1 2.5 2.5 2.5zM10 45l2 2-2 2-2-2z'/%3E%3Ccircle cx='50' cy='10' r='2'/%3E%3Ccircle cx='10' cy='50' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            animation: floatingPattern 25s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingPattern {
+            from { background-position: 0 0; }
+            to { background-position: 600px 600px; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+        }
+
+        header h2 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .alert-box {
+            background: #FFEAA7;
+            border: 3px solid #FDCB6E;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 0 #E17055;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .alert-title {
+            color: #D63031;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 900;
+        }
+
+        .section-title {
+            background: #FF7675;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 15px;
+            margin: 25px 0 12px 0;
+            display: inline-block;
+            font-weight: 900;
+            box-shadow: 0 4px 0 #D63031;
+            font-size: 1.1rem;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 15px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 0 #E2E8F0;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #CBD5E1;
+            background-color: #F8FAFC;
+        }
+
+        .option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #CBD5E1;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00B359 !important;
+            box-shadow: 0 4px 0 #00803F !important;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #E11D48 !important;
+            box-shadow: 0 4px 0 #9F1239 !important;
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+        }
+
+        /* Dạng bài Điền từ / Popup Chọn từ */
+        .gap-blank {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 3px dashed var(--primary-color);
+            background: #F1E9F9;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            padding: 2px 8px;
+            margin: 0 4px;
+        }
+
+        .gap-blank.correct {
+            border-bottom: 3px solid var(--correct-color);
+            background: #DCFCE7;
+            color: #15803D;
+            cursor: default;
+        }
+
+        .gap-blank.wrong {
+            border-bottom: 3px solid var(--wrong-color);
+            background: #FFE4E6;
+            color: #B91C1C;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .popup-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 90%;
+            width: 340px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        .popup-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .popup-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Khung Giải Thích Siêu Chi Tiết */
+        .explanation-box {
+            margin-top: 15px;
+            background: #F8FAFC;
+            border-left: 6px solid var(--primary-color);
+            border-radius: 0 15px 15px 0;
+            padding: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .explanation-box.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .exp-section {
+            margin-bottom: 8px;
+        }
+
+        .exp-title {
+            font-weight: 700;
+            color: #1E293B;
+            border-bottom: 1px dashed #CBD5E1;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .exp-list {
+            margin-left: 15px;
+        }
+
+        .exp-highlight {
+            color: #2563EB;
+            font-weight: 700;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Nút Nộp Bài & Kết Quả */
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-submit {
+            background: #FF7675;
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #D63031;
+            transition: all 0.1s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #D63031;
+        }
+
+        .btn-submit:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #D63031;
+        }
+
+        .result-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .result-content {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 460px;
+            width: 90%;
+            text-align: center;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .result-score {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .result-comment {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-close-result {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #00A387;
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h2>Giáo viên tạo: Ms Lê Hằng English</h2>
+        </header>
+
+        <div class="alert-box">
+            <span class="alert-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</span>
+            Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+            Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+            <span style="color: #00C9A7; display:block; margin-top:5px;">* Kéo tới đâu, làm tới đó! *</span>
+        </div>
+
+        <div id="quiz-container">
+            <!-- Dữ liệu đề bài được sinh tự động tại đây -->
+        </div>
+
+        <div class="submit-container">
+            <button type="button" class="btn-submit" onclick="gradeEntireQuiz()">NỘP BÀI</button>
+        </div>
+    </div>
+
+    <!-- Popup Lựa chọn từ cho Gap Fill -->
+    <div class="popup-overlay" id="gap-popup">
+        <div class="popup-content">
+            <div class="popup-title" id="gap-popup-title">Chọn đáp án đúng:</div>
+            <div class="popup-options" id="gap-popup-options"></div>
+        </div>
+    </div>
+
+    <!-- Popup Kết quả tổng hợp -->
+    <div class="result-overlay" id="result-modal">
+        <div class="result-content">
+            <div class="result-score" id="score-text">0/0</div>
+            <div class="result-comment" id="comment-text"></div>
+            <button class="btn-close-result" onclick="closeResultModal()">Xem lại bài học</button>
+        </div>
+    </div>
+
+    <script>
+        // --- HỆ THỐNG PHÁT ÂM THANH TỰ ĐỘNG (WEB AUDIO API) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.12); // E5
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(110, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        // --- CƠ SỞ DỮ LIỆU ĐỀ BÀI CHUẨN XÁC 100% ---
+        const quizData = [
+            // EXERCISE 24
+            {
+                id: 1,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"The more complicated the puzzle gets, the long it takes to solve.\"",
+                options: [
+                    { text: "complicated", isCorrect: false },
+                    { text: "gets", isCorrect: false },
+                    { text: "long", isCorrect: true },
+                    { text: "takes", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Câu đố càng phức tạp, càng mất nhiều thời gian để giải.",
+                    options: "A. complicated (adj): phức tạp; B. gets (v): trở nên; C. long (adj): dài, lâu; D. takes (v): tốn (thời gian).",
+                    reason: "Cấu trúc so sánh kép song song: The + comparative (S + V), the + comparative (S + V). Vế đầu dùng 'the more complicated', vế sau phải đổi tính từ ngắn 'long' thành dạng so sánh hơn là 'longer'. Do đó 'long' là từ sai.",
+                    wrongReason: "Các đáp án khác đúng ngữ pháp và ngữ cảnh (complicated bổ nghĩa cho puzzle, gets và takes chia đúng theo chủ ngữ số ít)."
+                }
+            },
+            {
+                id: 2,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"The most polluted the air gets, the harder it is to breathe.\"",
+                options: [
+                    { text: "most polluted", isCorrect: true },
+                    { text: "gets", isCorrect: false },
+                    { text: "harder", isCorrect: false },
+                    { text: "to breathe", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Không khí càng bị ô nhiễm, chúng ta càng khó thở hơn.",
+                    options: "A. most polluted (so sánh nhất); B. gets (v): trở nên; C. harder (so sánh hơn của hard); D. to breathe (v): thở.",
+                    reason: "Trong cấu trúc so sánh kép (Càng... thì càng...), cả hai vế đều bắt buộc sử dụng dạng so sánh hơn đi kèm với 'The'. Dạng so sánh hơn của 'polluted' là 'more polluted', không được dùng so sánh nhất 'most polluted'.",
+                    wrongReason: "Các từ khác hoàn toàn chính xác (gets đi kèm tính từ, harder đúng cấu trúc, cấu trúc 'it is + adj + to-V' dùng to breathe là chuẩn xác)."
+                }
+            },
+            {
+                id: 3,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"Despite the crowded streets, Tom decided to get up downtown by motorbike.\"",
+                options: [
+                    { text: "Despite", isCorrect: false },
+                    { text: "crowded", isCorrect: false },
+                    { text: "get up", isCorrect: true },
+                    { text: "by motorbike", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Mặc dù đường phố đông đúc, Tom vẫn quyết định đi xuống trung tâm thành phố bằng xe máy.",
+                    options: "A. Despite: Mặc dù; B. crowded (adj): đông đúc; C. get up (phr v): thức dậy; D. by motorbike: bằng xe máy.",
+                    reason: "Sai cụm động từ (Phrasal Verb). 'Get up' nghĩa là thức dậy, không hợp ngữ cảnh đi đến trung tâm thành phố. Cần sửa thành 'get down' (đi đến đâu/xuống phố trung tâm).",
+                    wrongReason: "Despite cộng danh từ/cụm danh từ là đúng; crowded dùng miêu tả đường phố rất tự nhiên; phương tiện giao thông dùng 'by + danh từ' là chính xác."
+                }
+            },
+            {
+                id: 4,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"We had to cancel our trip because our dad came up with the flu.\"",
+                options: [
+                    { text: "had to", isCorrect: false },
+                    { text: "cancel", isCorrect: false },
+                    { text: "because", isCorrect: false },
+                    { text: "came up with", isCorrect: true }
+                ],
+                explanation: {
+                    translation: "Chúng tôi phải hủy chuyến đi vì bố chúng tôi bị mắc bệnh cúm.",
+                    options: "A. had to: phải; B. cancel (v): hủy bỏ; C. because: bởi vì; D. came up with (phr v): nảy ra (ý tưởng).",
+                    reason: "Cụm động từ 'come up with' nghĩa là nảy ra một ý tưởng hay giải pháp nào đó. Để diễn tả việc bị mắc một căn bệnh (đặc biệt là bệnh lây nhiễm nhẹ như cúm, cảm sốt), ta phải dùng cụm động từ 'come down with'. Sửa 'up' thành 'down'.",
+                    wrongReason: "Had to diễn tả bổn phận quá khứ; cancel dùng đúng nghĩa; because nối mệnh đề chỉ nguyên nhân rất hợp lý."
+                }
+            },
+            {
+                id: 5,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"The cleaner the kitchen is, more inviting it looks.\"",
+                options: [
+                    { text: "The cleaner", isCorrect: false },
+                    { text: "kitchen is", isCorrect: false },
+                    { text: "more inviting", isCorrect: true },
+                    { text: "looks", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Nhà bếp càng sạch sẽ, trông nó càng có vẻ lôi cuốn/hấp dẫn hơn.",
+                    options: "A. The cleaner (so sánh hơn); B. kitchen is (chủ ngữ + động từ); C. more inviting (thiếu chữ 'the'); D. looks (v): trông có vẻ.",
+                    reason: "Quy tắc so sánh kép bắt buộc cả hai vế đều phải có mạo từ 'The' đứng đầu: The + so sánh hơn..., The + so sánh hơn... Ở vế thứ hai chỉ có 'more inviting' là thiếu từ 'The'. Cần sửa thành 'the more inviting'.",
+                    wrongReason: "Các phần khác hoàn toàn đúng ngữ pháp (cleaner là dạng so sánh hơn của tính từ ngắn clean; looks là động từ liên kết đi kèm tính từ inviting)."
+                }
+            },
+            {
+                id: 6,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"The crowdeder the bus is, the longer the journey takes.\"",
+                options: [
+                    { text: "crowdeder", isCorrect: true },
+                    { text: "is", isCorrect: false },
+                    { text: "longer", isCorrect: false },
+                    { text: "takes", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Xe buýt càng đông đúc, hành trình càng mất nhiều thời gian hơn.",
+                    options: "A. crowdeder (từ không có nghĩa); B. is (v): là; C. longer (adj so sánh hơn); D. takes (v): tốn thời gian.",
+                    reason: "Từ 'crowded' là tính từ dài (2 âm tiết và không có đuôi đặc biệt để tính là tính từ ngắn). Do đó, khi chuyển sang dạng so sánh hơn, ta phải dùng 'more crowded' thay vì thêm đuôi '-er' thành 'crowdeder'. Sửa thành 'more crowded'.",
+                    wrongReason: "Các thành phần khác hoàn toàn chính xác theo công thức cấu trúc so sánh kép song song."
+                }
+            },
+            {
+                id: 7,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"My brother enjoys hanging up with his colleagues at the local pub after work.\"",
+                options: [
+                    { text: "enjoys", isCorrect: false },
+                    { text: "hanging up", isCorrect: true },
+                    { text: "colleagues", isCorrect: false },
+                    { text: "after work", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Anh trai tôi thích đi chơi/tụ tập với các đồng nghiệp của mình tại quán rượu địa phương sau giờ làm việc.",
+                    options: "A. enjoys (v): thích thú; B. hanging up (phr v): treo máy/treo đồ lên; C. colleagues (n): đồng nghiệp; D. after work: sau giờ làm.",
+                    reason: "Cụm từ diễn tả hành động dành thời gian đi chơi, tụ tập vui vẻ với ai đó là 'hang out with'. Còn cụm 'hang up' mang nghĩa là dập máy điện thoại hoặc treo quần áo lên, hoàn toàn lạc quẻ ở đây. Do đó, cần đổi 'up' thành 'out'.",
+                    wrongReason: "Enjoys đi kèm V-ing (hanging) là chuẩn xác; colleagues viết đúng chính tả danh từ số nhiều; sau giờ làm dùng cụm từ cố định 'after work'."
+                }
+            },
+            {
+                id: 8,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"The more expensive the hotel gets, the most luxurious the amenities become.\"",
+                options: [
+                    { text: "more expensive", isCorrect: false },
+                    { text: "gets", isCorrect: false },
+                    { text: "most luxurious", isCorrect: true },
+                    { text: "become", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Khách sạn càng đắt tiền thì các tiện nghi đi kèm càng trở nên sang trọng.",
+                    options: "A. more expensive: đắt đỏ hơn; B. gets (v): trở nên; C. most luxurious: sang trọng nhất; D. become (v): trở thành.",
+                    reason: "Sai công thức cấu trúc so sánh kép. Mệnh đề thứ hai đang dùng 'the most luxurious' (hình thức so sánh nhất), phải sửa lại thành dạng so sánh hơn là 'the more luxurious' để tương thích đồng bộ với vế đầu tiên.",
+                    wrongReason: "Vế đầu dùng 'the more expensive' là chuẩn tính từ dài; các động từ nối 'gets' và 'become' chia thích hợp với danh từ đứng trước."
+                }
+            },
+            {
+                id: 9,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"The committee is working together to carry in a project to organise a charity event.\"",
+                options: [
+                    { text: "working together", isCorrect: false },
+                    { text: "carry in", isCorrect: true },
+                    { text: "to organise", isCorrect: false },
+                    { text: "charity event", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Ủy ban đang làm việc cùng nhau để tiến hành một dự án tổ chức một sự kiện từ thiện.",
+                    options: "A. working together: làm việc cùng nhau; B. carry in: mang vào trong; C. to organise: để tổ chức; D. charity event: sự kiện từ thiện.",
+                    reason: "Để diễn tả hành động thực hiện, tiến hành một kế hoạch, dự án hay cuộc khảo sát, tiếng Anh sử dụng phrasal verb cố định là 'carry out'. Cụm từ 'carry in' không có nghĩa phù hợp tại đây. Sửa 'in' thành 'out'.",
+                    wrongReason: "Working together đúng dạng tiếp diễn chỉ hành động đang diễn ra; 'to organise' chỉ mục đích đứng sau cụm danh từ hợp lệ."
+                }
+            },
+            {
+                id: 10,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"We must cut down out water pollution to protect marine life and ecosystems.\"",
+                options: [
+                    { text: "must", isCorrect: false },
+                    { text: "cut down out", isCorrect: true },
+                    { text: "to protect", isCorrect: false },
+                    { text: "marine life", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chúng ta phải cắt giảm sự ô nhiễm nguồn nước để bảo vệ sinh vật biển và hệ sinh thái.",
+                    options: "A. must: phải; B. cut down out (viết sai giới từ); C. to protect: để bảo vệ; D. marine life: đời sống sinh vật biển.",
+                    reason: "Cụm động từ mang nghĩa cắt giảm một thứ gì đó có hại là 'cut down on', không tồn tại cụm 'cut down out'. Do đó phần từ viết sai ở đây chính là 'out', cần thay thế bằng giới từ 'on'.",
+                    wrongReason: "Động từ khuyết thiếu 'must' nguyên thể đúng ngữ pháp; cấu trúc chỉ mục đích 'to + V' (to protect) hoàn toàn chuẩn xác."
+                }
+            },
+            {
+                id: 11,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"More complicated the problem becomes, the more confused she feels.\"",
+                options: [
+                    { text: "More complicated", isCorrect: true },
+                    { text: "becomes", isCorrect: false },
+                    { text: "the more confused", isCorrect: false },
+                    { text: "feels", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Vấn đề càng trở nên phức tạp, cô ấy càng cảm thấy bối rối.",
+                    options: "A. More complicated (thiếu mạo từ 'The'); B. becomes (v): trở nên; C. the more confused: càng bối rối hơn; D. feels (v): cảm thấy.",
+                    reason: "Cấu trúc so sánh kép yêu cầu bắt buộc cả hai vế song hành đều phải bắt đầu bằng mạo từ 'The'. Vế đầu tiên ghi 'More complicated' là sai do thiếu từ 'The'. Cần sửa lại đúng thành 'The more complicated'.",
+                    wrongReason: "Vế thứ hai 'the more confused she feels' làm chuẩn mực chính xác theo công thức cấu trúc so sánh kép."
+                }
+            },
+            {
+                id: 12,
+                section: "Exercise 24: Underline the mistake and rewrite the correct one.",
+                type: "abcd",
+                question: "Find the mistake in the sentence: \"They came down to food poisoning after eating at that restaurant.\"",
+                options: [
+                    { text: "came down to", isCorrect: true },
+                    { text: "food poisoning", isCorrect: false },
+                    { text: "after eating", isCorrect: false },
+                    { text: "at that restaurant", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Họ đã bị ngộ độc thực phẩm sau khi ăn tại nhà hàng đó.",
+                    options: "A. came down to (sai giới từ); B. food poisoning: ngộ độc thực phẩm; C. after eating: sau khi ăn; D. at that restaurant: tại nhà hàng đó.",
+                    reason: "Mắc một căn bệnh hay triệu chứng sức khỏe suy giảm do ngộ độc/nhiễm vi rút ta phải dùng cụm động từ 'come down with'. Cụm từ 'come down to' lại mang nghĩa là chung quy lại/chung cuộc là chuyện gì, không hợp ngữ cảnh. Sửa cụm giới từ thành 'came down with'.",
+                    wrongReason: "Food poisoning là cụm danh từ chuẩn; after làm giới từ đi kèm động từ thêm đuôi -ing (eating) hoàn toàn đúng cấu trúc."
+                }
+            },
+            // EXERCISE 25
+            {
+                id: 13,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"these days/ more/ more/ people/ be/ suffer/ air pollution\"",
+                options: [
+                    { text: "These days, more and more people are suffering from air pollution.", isCorrect: true },
+                    { text: "These days, more than more people are suffering for air pollution.", isCorrect: false },
+                    { text: "These days, more and more people is suffering by air pollution.", isCorrect: false },
+                    { text: "These days, more and more people are suffer from air pollution.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Dạo gần đây, ngày càng có nhiều người phải chịu đựng sự ô nhiễm không khí.",
+                    options: "Dựa vào các phương án cấu trúc kết hợp từ gợi ý để tạo lập câu hoàn chỉnh.",
+                    reason: "Cấu trúc so sánh tiến triển (ngày càng...) có dạng 'more and more + danh từ số nhiều' (more and more people). Động từ 'suffer' đi kèm giới từ cố định là 'from' (suffer from something: chịu đựng điều gì). Chủ ngữ 'people' số nhiều nên hệ động từ chia 'are suffering'. Phương án A đáp ứng trọn vẹn toàn bộ các quy tắc này.",
+                    wrongReason: "Phương án B sai cấu trúc 'more than more' và giới từ 'for'; phương án C sai động từ tobe 'is'; phương án D sai vì sau tobe 'are' không để dạng động từ nguyên mẫu 'suffer'."
+                }
+            },
+            {
+                id: 14,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"there/ be/ steady/ increase/ demand/ hotel accommodation/ since 1998\"",
+                options: [
+                    { text: "There was a steady increase of demand for hotel accommodation since 1998.", isCorrect: false },
+                    { text: "There has been a steady increase in the demand for hotel accommodations since 1998.", isCorrect: true },
+                    { text: "There is a steady increase in demand of hotel accommodation since 1998.", isCorrect: false },
+                    { text: "There had been steady increase in demand for hotel accommodation since 1998.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Đã có một sự gia tăng đều đặn về nhu cầu đối với chỗ ở khách sạn kể từ năm 1998.",
+                    options: "Xem xét sự kết hợp thì thời động từ và cụm danh từ đi cùng giới từ phù hợp.",
+                    reason: "Có dấu hiệu nhận biết thời gian 'since 1998' nên câu bắt buộc phải chia ở thì Hiện tại hoàn thành -> 'There has been'. Cấu trúc cụm từ sự gia tăng về cái gì là 'an increase in something', và nhu cầu về điều gì là 'demand for something'. Do đó câu B viết chuẩn chỉnh.",
+                    wrongReason: "Câu A dùng thì quá khứ đơn; câu C dùng hiện tại đơn và dùng sai cụm 'demand of'; câu D dùng quá khứ hoàn thành không hợp lý khi diễn tả hành động kéo dài tới hiện tại."
+                }
+            },
+            {
+                id: 15,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"people/ face/ large/ number/ environmental problems/ every day\"",
+                options: [
+                    { text: "People face a large number of environmental problems every day.", isCorrect: true },
+                    { text: "People faces a large number of environmental problems every day.", isCorrect: false },
+                    { text: "People are face with large number of environmental problems every day.", isCorrect: false },
+                    { text: "People face with a large number environmental problems every day.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Mọi người đối mặt với một số lượng lớn các vấn đề môi trường mỗi ngày.",
+                    options: "Phân tích cấu trúc ngữ pháp động từ chính chia theo chủ ngữ và cụm chỉ số lượng.",
+                    reason: "Chủ ngữ 'People' là danh từ tập hợp số nhiều nên động từ 'face' giữ nguyên mẫu ở hiện tại đơn. Cụm từ định lượng: 'a large number of + danh từ đếm được số nhiều' (a large number of environmental problems). Trạng từ thời gian 'every day' đứng cuối câu. Vậy đáp án A chính xác.",
+                    wrongReason: "Đáp án B sai vì động từ 'faces' thêm -s cho số ít; đáp án C viết thiếu giới từ 'of' ở cụm large number; đáp án D dùng sai cấu trúc 'face with' (chỉ dùng dạng bị động be faced with)."
+                }
+            },
+            {
+                id: 16,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"he/ spend/ most/ time/ surf/ net/ information/ the next trip\"",
+                options: [
+                    { text: "He spends most of his time surf the net for information about the next trip.", isCorrect: false },
+                    { text: "He spends most of his time surfing the net for information about the next trip.", isCorrect: true },
+                    { text: "He spend most time surfing net for information of the next trip.", isCorrect: false },
+                    { text: "He is spending most of time to surf net for information about next trip.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Anh ấy dành phần lớn thời gian của mình lướt mạng để tìm kiếm thông tin về chuyến đi tiếp theo.",
+                    options: "Áp dụng cấu trúc động từ 'spend' đi kèm hành động.",
+                    reason: "Cấu trúc kinh điển với động từ spend: S + spend + time + V-ing (dành thời gian làm việc gì). Ở đây ta có cụm 'spend most of his time surfing the net'. Cụm tìm kiếm thông tin về cái gì dùng cụm từ 'for information about something'. Chủ ngữ 'He' số ít nên động từ 'spends' có đuôi -s. Đáp án B chuẩn.",
+                    wrongReason: "Đáp án A dùng 'surf' nguyên mẫu là sai cấu trúc; đáp án C động từ 'spend' thiếu đuôi -s và thiếu giới từ 'about'; đáp án D dùng 'to surf' hoàn toàn sai quy tắc ngữ pháp."
+                }
+            },
+            {
+                id: 17,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"the house/ that/ we/ rent/ London/ last year/ be/ fully/ furnish\"",
+                options: [
+                    { text: "The house that we rented in London last year was fully furnished.", isCorrect: true },
+                    { text: "The house that we rent in London last year is fully furnished.", isCorrect: false },
+                    { text: "The house that we rented at London last year was fully furnish.", isCorrect: false },
+                    { text: "The house which we rented in London last year fully furnished.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Ngôi nhà mà chúng tôi thuê ở Luân Đôn năm ngoái đã được trang bị đầy đủ nội thất.",
+                    options: "Xác định mốc thời gian quá khứ để chia động từ chính và cấu trúc câu bị động.",
+                    reason: "Có trạng ngữ chỉ thời gian 'last year' nên hành động thuê nhà phải chia ở quá khứ đơn 'rented'. Ngôi nhà mang tính chất được trang bị đồ đạc đầy đủ nên tính từ mang nghĩa bị động là 'fully furnished' kết hợp động từ tobe ở quá khứ tương ứng chủ ngữ số ít (was). Vì vậy phương án A chuẩn chỉnh.",
+                    wrongReason: "Phương án B chia hiện tại đơn là sai thời gian; phương án C dùng giới từ 'at London' sai (phải dùng 'in' với thành phố lớn) và thiếu dạng bị động ở từ furnish; phương án D thiếu động từ tobe chính 'was'."
+                }
+            },
+            {
+                id: 18,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"she/ never/ read/ such/ romantic story/ this/ before\"",
+                options: [
+                    { text: "She never reads such romantic story like this before.", isCorrect: false },
+                    { text: "She has never read such a romantic story like this before.", isCorrect: true },
+                    { text: "She had never read such romantic story as this before.", isCorrect: false },
+                    { text: "She has never read so romantic story like this before.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Cô ấy chưa bao giờ đọc một câu chuyện lãng mạn như thế này trước đây.",
+                    options: "Áp dụng cấu trúc câu hiện tại hoàn thành đi kèm cụm nhấn mạnh 'such a/an'.",
+                    reason: "Từ nhận biết 'before' ở cuối câu đi cùng từ trải nghiệm 'never' là dấu hiệu của thì Hiện tại hoàn thành (S + have/has + V3/ed). Cấu trúc nhấn mạnh với 'such': such + a/an + tính từ + danh từ số ít đếm được -> 'such a romantic story'. Do đó câu B đáp ứng đầy đủ cấu trúc.",
+                    wrongReason: "Câu A dùng thì hiện tại đơn; câu C dùng quá khứ hoàn thành và thiếu mạo từ 'a'; câu D dùng sai từ 'so' (so đi trực tiếp với tính từ, không đi liền cụm danh từ có danh từ số ít phía sau)."
+                }
+            },
+            {
+                id: 19,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"Van Gogh/ have/ major influence/ development/ modern painting\"",
+                options: [
+                    { text: "Van Gogh had a major influence on the development of modern painting.", isCorrect: true },
+                    { text: "Van Gogh has major influence in the development of modern painting.", isCorrect: false },
+                    { text: "Van Gogh had major influence to development of modern painting.", isCorrect: false },
+                    { text: "Van Gogh had a major influence for development in modern painting.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Họa sĩ Van Gogh đã có một ảnh hưởng lớn đến sự phát triển của hội họa hiện đại.",
+                    options: "Xác định sự kết hợp giới từ chính xác của danh từ 'influence'.",
+                    reason: "Van Gogh là nhân vật lịch sử trong quá khứ nên động từ chia quá khứ đơn 'had'. Cụm cấu trúc cố định mang nghĩa có tầm ảnh hưởng lớn đến cái gì: 'have a major influence on something'. Sự phát triển của cái gì dùng cụm giới từ 'development of something'. Sự phối hợp giới từ ở câu A hoàn hảo.",
+                    wrongReason: "Các đáp án B, C, D sử dụng sai giới từ đi kèm với danh từ 'influence' (in, to, for đều không đúng quy tắc kết hợp từ)."
+                }
+            },
+            {
+                id: 20,
+                section: "Exercise 25: Write sentences, using the clues given.",
+                type: "abcd",
+                question: "Choose the correct sentence made from the clues: \"despite/ Brexit,/ London/ remain/ one/ most/ open/ cosmopolite/ city/ the world\"",
+                options: [
+                    { text: "Despite Brexit, London remains one of the most open and cosmopolitan cities in the world.", isCorrect: true },
+                    { text: "Despite of Brexit, London remains one of most open and cosmopolitan city in the world.", isCorrect: false },
+                    { text: "In spite Brexit, London remains one of the most open and cosmopolitan cities of the world.", isCorrect: false },
+                    { text: "Despite Brexit, London remain one of the most open cosmopolitan cities in world.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Dịch nghĩa câu: Mặc dù có sự kiện Brexit, Luân Đôn vẫn là một trong những thành phố mở và mang tính quốc tế nhất trên thế giới.",
+                    options: "Phân tích cấu trúc 'one of the most + adj + danh từ số nhiều' và liên từ chỉ sự tương phản.",
+                    reason: "Từ 'despite' đứng đầu cụm danh từ (không có 'of'). Cấu trúc 'một trong những cái gì nhất': 'one of the most + tính từ + danh từ số nhiều'. Do đó từ 'city' phải chuyển thành dạng danh từ số nhiều 'cities'. Tính từ tương ứng của cosmopolite phù hợp ngữ cảnh bổ nghĩa là 'cosmopolitan'. Cụm trên thế giới dùng 'in the world'. Vậy câu A đúng hoàn toàn.",
+                    wrongReason: "Câu B dùng sai cụm 'despite of' và danh từ 'city' ở dạng số ít; câu C dùng sai 'In spite' thiếu 'of'; câu D sai chia động từ 'remain' (chủ ngữ London số ít cần thêm -s)."
+                }
+            },
+            // EXERCISE 26
+            {
+                id: 21,
+                section: "Exercise 26: Rearrange the words and phrases to make complete sentences.",
+                type: "abcd",
+                question: "Rearrange: \"Lan/ her brother/ missed/ came down/ the concert/ because/ with/ a fever.\"",
+                options: [
+                    { text: "Lan missed the concert because her brother came down with a fever.", isCorrect: true },
+                    { text: "Lan came down with a fever because her brother missed the concert.", isCorrect: false },
+                    { text: "Because her brother missed the concert, Lan came down with a fever.", isCorrect: false },
+                    { text: "Her brother missed the concert because Lan came down with a fever.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Lan đã bỏ lỡ buổi hòa nhạc bởi vì em trai của cô ấy bị sốt.",
+                    options: "Sắp xếp các thành phần mệnh đề chính và mệnh đề lý do nguyên nhân liên kết bằng 'because'.",
+                    reason: "Theo đúng mạch logic ý nghĩa và ngữ pháp: Hành động kết quả 'Lan missed the concert' (Lan bỏ lỡ buổi diễn) xảy ra do lý do 'because her brother came down with a fever' (vì em trai bị sốt - dùng đúng phrasal verb mắc bệnh). Câu A ghép nối logic chuẩn xác nhất.",
+                    wrongReason: "Các phương án khác đảo lộn chủ ngữ làm câu mang ý nghĩa phi lý hoặc sai lệch hoàn toàn với nội dung gốc của bài tập gợi ý."
+                }
+            },
+            {
+                id: 22,
+                section: "Exercise 26: Rearrange the words and phrases to make complete sentences.",
+                type: "abcd",
+                question: "Rearrange: \"diverse city/ in/ a/ new language/ learn/ challenging/ It/ is/ while living/ to\"",
+                options: [
+                    { text: "It is challenging to learn a new language while living in a diverse city.", isCorrect: true },
+                    { text: "To learn a new language is challenging while living in a city diverse.", isCorrect: false },
+                    { text: "It is a diverse city to learn challenging new language while living in.", isCorrect: false },
+                    { text: "While living in a diverse city, it challenging to learn a new language.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Thật là thử thách khi học một ngôn ngữ mới trong khi sống ở một thành phố đa dạng văn hóa.",
+                    options: "Áp dụng cấu trúc chủ ngữ giả cấu trúc 'It is + adj + to-V'.",
+                    reason: "Cấu trúc chuẩn: It + is + adjective + to-V (Thật như thế nào khi làm gì...). Đoạn sau sử dụng mệnh đề rút gọn với liên từ chỉ thời gian: 'while living in a diverse city'. Do đó câu A sắp xếp hoàn hảo cấu trúc.",
+                    wrongReason: "Câu B sắp xếp vị trí tính từ 'city diverse' sai quy tắc; câu C sắp sai trật tự nghĩa; câu D thiếu động từ 'is' ở mệnh đề chính (it challenging)."
+                }
+            },
+            // EXERCISE 27 (Chọn mẫu câu tiêu biểu từ Ex 27)
+            {
+                id: 23,
+                section: "Exercise 27: Rewrite the following sentences using double comparatives.",
+                type: "abcd",
+                question: "Rewrite using double comparative: \"She eats much, she will become fat.\"",
+                options: [
+                    { text: "The much she eats, the fatter she will become.", isCorrect: false },
+                    { text: "The more she eats, the fatter she will become.", isCorrect: true },
+                    { text: "The more she eats, the more fat she will become.", isCorrect: false },
+                    { text: "The fatter she becomes, the more she eats.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cô ấy càng ăn nhiều, cô ấy sẽ càng béo.",
+                    options: "Chuyển đổi trạng từ 'much' và tính từ 'fat' sang thể so sánh hơn đi kèm mạo từ 'The'.",
+                    reason: "Dạng so sánh hơn của trạng từ 'much' là 'more', và tính từ ngắn 'fat' biến đổi thành 'fatter' (gấp đôi phụ âm cuối). Áp dụng cấu trúc so sánh kép: 'The more she eats, the fatter she will become.' tạo nên sự cân bằng chuẩn xác nhất. Đáp án B chuẩn.",
+                    wrongReason: "Đáp án A giữ nguyên 'much' là sai; đáp án C dùng 'more fat' sai quy tắc tính từ ngắn; đáp án D đảo ngược trật tự nguyên nhân - kết quả của câu gốc."
+                }
+            },
+            {
+                id: 24,
+                section: "Exercise 27: Rewrite the following sentences using double comparatives.",
+                type: "abcd",
+                question: "Rewrite using double comparative: \"I waited long. I got angry.\"",
+                options: [
+                    { text: "The longer I waited, the angrier I got.", isCorrect: true },
+                    { text: "The long I waited, the more angry I got.", isCorrect: false },
+                    { text: "The more long I waited, the angrier I got.", isCorrect: false },
+                    { text: "The longer I waited, the more angrier I got.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tôi càng đợi lâu, tôi càng trở nên tức giận.",
+                    options: "Biến đổi hai tính từ/trạng từ ngắn 'long' và 'angry' sang dạng so sánh hơn.",
+                    reason: "So sánh hơn của 'long' là 'longer'. Tính từ 'angry' kết thúc bằng đuôi '-y', ta chuyển thành '-ier' thành 'angrier'. Ghép vào cấu trúc song hành: 'The longer..., the angrier...'. Vậy đáp án A chính xác.",
+                    wrongReason: "Các đáp án B, C, D sai ở cách thành lập dạng so sánh hơn của tính từ ngắn (dùng long, more long hoặc dùng thừa từ kiểu song trùng 'more angrier')."
+                }
+            },
+            // EXERCISE 28
+            {
+                id: 25,
+                section: "Exercise 28: Rewrite the sentences, using the word in brackets as a cue.",
+                type: "abcd",
+                question: "Rewrite using \"on\": \"Jim continues chatting although the teacher has warned him.\"",
+                options: [
+                    { text: "Jim goes on chatting although the teacher has warned him.", isCorrect: true },
+                    { text: "Jim keeps on to chat although the teacher has warned him.", isCorrect: false },
+                    { text: "Jim takes on chatting although the teacher has warned him.", isCorrect: false },
+                    { text: "Jim chats on although the teacher has warned him.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Jim tiếp tục tán gẫu mặc dù giáo viên đã cảnh báo cậu ấy.",
+                    options: "Thay thế động từ 'continue' bằng cụm động từ tương đương chứa từ gợi ý 'on'.",
+                    reason: "Cụm động từ 'go on' đồng nghĩa với động từ 'continue' (tiếp tục làm gì đó) và đằng sau nó đi với động từ dạng đuôi -ing (go on doing something). Vì chủ ngữ là Jim số ít, ta chia ở hiện tại đơn thành 'goes on'. Câu A viết hoàn hảo.",
+                    wrongReason: "Câu B sai cấu trúc vì sau keep on phải là V-ing chứ không dùng to-V; câu C phrasal verb 'take on' mang nghĩa gánh vác, tuyển dụng nên không hợp nghĩa."
+                }
+            },
+            {
+                id: 26,
+                section: "Exercise 28: Rewrite the sentences, using the word in brackets as a cue.",
+                type: "abcd",
+                question: "Rewrite using \"turn\": \"Lucy refused the job offer because of low commissions and benefits.\"",
+                options: [
+                    { text: "Lucy turned up the job offer because of low commissions and benefits.", isCorrect: false },
+                    { text: "Lucy turned down the job offer because of low commissions and benefits.", isCorrect: true },
+                    { text: "Lucy turned off the job offer because of low commissions and benefits.", isCorrect: false },
+                    { text: "Lucy turned away the job offer because of low commissions and benefits.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Lucy đã từ chối lời đề nghị công việc vì hoa hồng và phúc lợi thấp.",
+                    options: "Tìm phrasal verb tương đương từ 'refuse' (từ chối).",
+                    reason: "Cụm động từ 'turn down' mang ý nghĩa là khước từ, từ chối một lời mời, lời đề nghị hay cơ hội nào đó, đồng nghĩa hoàn toàn với động từ 'refuse'. Do câu gốc ở thì quá khứ đơn (refused) nên ta chia quá khứ là 'turned down'. Đáp án B hoàn toàn chính xác.",
+                    wrongReason: "Các cụm khác mang nghĩa khác hẳn: turn up (xuất hiện/vặn to), turn off (tắt thiết bị), turn away (ngoảnh mặt đi/bác bỏ)."
+                }
+            },
+            // EXERCISE 29
+            {
+                id: 27,
+                section: "Exercise 29: Complete the second sentence so that it means the same as the first one.",
+                type: "abcd",
+                question: "Complete the second sentence: \"Staying at home is better than going out on a polluted street.\" 🡪 I’d rather...",
+                options: [
+                    { text: "I’d rather staying at home than going out on the polluted street.", isCorrect: false },
+                    { text: "I’d rather stay at home than go out on the polluted street.", isCorrect: true },
+                    { text: "I’d rather to stay at home than to go out on the polluted street.", isCorrect: false },
+                    { text: "I’d rather stay at home to going out on the polluted street.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Ở nhà thì tốt hơn là đi ra ngoài trên một đường phố bị ô nhiễm.",
+                    options: "Chuyển dịch cấu trúc so sánh hơn sang cấu trúc ưu tiên lựa chọn thích làm gì hơn làm gì.",
+                    reason: "Cấu trúc câu lựa chọn ưu tiên: 'S + would rather ('d rather) + V (nguyên mẫu) + than + V (nguyên mẫu)' (thích làm việc này hơn việc kia). Động từ 'stay' và 'go' giữ nguyên thể không chia. Do đó câu B tuân thủ hoàn hảo cấu trúc ngữ pháp.",
+                    wrongReason: "Các câu A, C, D sử dụng sai dạng động từ sau cấu trúc 'would rather... than' (dùng dạng V-ing hoặc dùng to-V là sai quy tắc)."
+                }
+            },
+            // EXERCISE 30
+            {
+                id: 28,
+                section: "Exercise 30: Choose the option that best transforms the original one.",
+                type: "abcd",
+                question: "The cost of living in the rural areas is not as high as in the city.",
+                options: [
+                    { text: "The cost of living in the city is higher than in rural areas.", isCorrect: true },
+                    { text: "The cost of living in the city is not higher than in rural areas.", isCorrect: false },
+                    { text: "The cost of living in the city is the highest in the country.", isCorrect: false },
+                    { text: "The cost of living in the city is as high as anywhere else.", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chi phí sinh hoạt ở các vùng nông thôn không cao bằng ở thành phố.",
+                    options: "A. Chi phí sinh hoạt ở thành phố cao hơn ở nông thôn; B. Chi phí sinh hoạt ở thành phố không cao hơn ở nông thôn; C. Chi phí sinh hoạt ở thành phố là cao nhất cả nước; D. Chi phí sinh hoạt ở thành phố cao bằng bất cứ nơi nào khác.",
+                    reason: "Câu gốc sử dụng cấu trúc so sánh không bằng 'not as high as' (nông thôn không cao bằng thành phố). Điều này đồng nghĩa logic trực tiếp với việc chi phí ở thành phố cao hơn ở nông thôn ('higher than'). Do đó câu A biến đổi chuẩn nghĩa nhất.",
+                    wrongReason: "Câu B sai nghĩa hoàn toàn; câu C và D tự ý thêm thông tin cực đoan (cao nhất, bằng bất kỳ nơi nào) không có trong câu gốc."
+                }
+            },
+            // DẠNG GAP FILL ĐẶC THÙ (DÙNG CHO BÀI SẮP XẾP / ĐIỀN ĐOẠN VĂN EX 31 & 32)
+            {
+                id: 29,
+                section: "Exercise 31: Mark the letter A, B, C or D to indicate the correct arrangement of the sentences to make a meaningful paragraph.",
+                type: "gapfill",
+                question: "Sắp xếp các câu sau thành một đoạn văn hoàn chỉnh hướng về cuộc sống đô thị:<br>a. I've found a nice apartment near the park...<br>b. There's always something to do here...<br>c. Dear Sue, I'm writing to tell you about my new city life!...<br>d. I miss you and Ha Noi city...<br>e. The city is so big and busy, but I'm slowly getting used to it.<br>Thứ tự sắp xếp đúng là: [BLANK]",
+                blankAnswers: ["c – e – a – b – d"],
+                popupOptions: [["c – d – a – b – e", "c – e – a – b – d", "c – d – b – a – e", "c – e – b – a – d"]],
+                explanation: {
+                    translation: "Đoạn văn hoàn chỉnh: 'Thư gửi Sue thân mến, tớ viết thư để kể cho cậu nghe về cuộc sống thành phố mới của tớ! Tớ đã chuyển đến TP.HCM vài tuần trước và đây quả là một cuộc phiêu lưu. Thành phố thật lớn và bận rộn, nhưng tớ đang dần quen với nó. Tớ đã tìm được một căn hộ đẹp gần công viên và đã khám phá vài cửa hàng, quán cà phê địa phương. Luôn có điều gì đó để làm ở đây và tớ rất hào hứng khám phá thêm. Tớ nhớ cậu và Hà Nội, nhưng tớ đang tận hưởng chương mới này. Hy vọng sớm gặp lại cậu!'",
+                    options: "Các phương án trật tự sắp xếp logic cho bức thư thân mật.",
+                    reason: "Một bức thư luôn bắt đầu bằng lời chào mở đầu (c - Dear Sue...). Tiếp theo giới thiệu cảm nhận chung khi mới đến thành phố lớn (e - The city is so big...). Tiếp diễn mô tả chi tiết chỗ ở ổn định cuộc sống (a - I've found a nice apartment...). Nêu cảm nhận về cuộc sống đa dạng tại đây (b - There's always something...) và cuối cùng là lời nhắn nhủ nhớ bạn, lời chúc kết thúc thư (d - I miss you...). Trật tự B là hoàn toàn hợp lý.",
+                    wrongReason: "Các trật tự khác đưa câu kết d lên giữa hoặc xếp câu mô tả căn hộ trước câu cảm nhận tổng quan, làm hỏng mạch văn phong logic tự nhiên của bức thư."
+                }
+            },
+            {
+                id: 30,
+                section: "Exercise 32: Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+                type: "abcd",
+                question: "Pickpocketing is a serious problem in many cities. It's a particularly sneaky crime because it takes advantage of people's trust and often goes unnoticed until it's too late. __________. <br>Choose the best sentence arrangement (a-c) to fill in the blank:<br>a. This allows thieves to operate without being easily identified.<br>b. The crowded nature of urban environments, with busy streets and public transport, creates many opportunities for pickpockets.<br>c. Therefore, individuals must be careful, aware of their surroundings, and take steps to protect their belongings in these areas.",
+                options: [
+                    { text: "a - b - c", isCorrect: false },
+                    { text: "b - a - c", isCorrect: true },
+                    { text: "c - b - a", isCorrect: false },
+                    { text: "a - c - b", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Nạn móc túi là một vấn đề nghiêm trọng ở nhiều thành phố. Đó là một tội phạm đặc biệt lén lút... (b) Bản chất đông đúc của môi trường đô thị tạo nhiều cơ hội cho kẻ móc túi. (a) Điều này cho phép những tên trộm hoạt động mà không dễ bị nhận diện. (c) Do đó, các cá nhân phải cẩn thận và bảo vệ tài sản của mình.",
+                    options: "Các trật tự sắp xếp liên kết câu luận điểm.",
+                    reason: "Câu trước đang nói về hành vi lén lút của tội phạm. Câu (b) tiếp nối đưa ra nguyên nhân môi trường đông đúc tạo cơ hội. Đại từ thay thế 'This' ở đầu câu (a) liên kết trực tiếp giải thích cho hệ quả của sự đông đúc ở câu (b). Cuối cùng, từ nối kết luận 'Therefore' ở câu (c) đưa ra lời khuyên hành động phù hợp nhất để khép lại đoạn văn. Trật tự logic đúng là b - a - c.",
+                    wrongReason: "Đặt (a) lên trước không rõ từ 'This' thế thế cho cái gì; đặt (c) lên trước làm mất đi tính kết luận ở cuối đoạn văn."
+                }
+            }
+        ];
+
+        // --- BỘ TRỘN ĐÁP ÁN ĐỘNG (SHUFFLE ARRAY ALGORITHM) ---
+        function shuffleOptions(options) {
+            let shuffled = [...options];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // --- KHỞI TẠO VÀ HIỂN THỊ GIAO DIỆN BÀI THI ---
+        const container = document.getElementById('quiz-container');
+        let currentSectionName = "";
+
+        quizData.forEach((q, index) => {
+            if (q.section !== currentSectionName) {
+                currentSectionName = q.section;
+                const secTitle = document.createElement('div');
+                secTitle.className = 'section-title';
+                secTitle.innerText = currentSectionName;
+                container.appendChild(secTitle);
+            }
+
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.id = `card-${q.id}`;
+
+            if (q.type === 'abcd') {
+                const shuffledOpts = shuffleOptions(q.options);
+                let optionsHtml = '';
+                shuffledOpts.forEach(opt => {
+                    optionsHtml += `<button class="option-btn" data-correct="${opt.isCorrect}" onclick="selectAbcdOption(this, ${q.id})">${opt.text}</button>`;
+                });
+
+                card.innerHTML = `
+                    <div class="question-text"><strong>Câu ${index + 1}:</strong> ${q.question}</div>
+                    <div class="options-container">${optionsHtml}</div>
+                    <div class="explanation-box" id="exp-${q.id}">
+                        <div class="exp-section"><div class="exp-title">🌟 Dịch nghĩa câu hỏi:</div><div class="exp-text">${q.explanation.translation}</div></div>
+                        <div class="exp-section"><div class="exp-title">💎 Phân tích từ vựng đáp án:</div><div class="exp-text">${q.explanation.options}</div></div>
+                        <div class="exp-section"><div class="exp-title">✅ Tại sao đáp án này ĐÚNG?</div><div class="exp-text exp-highlight">${q.explanation.reason}</div></div>
+                        <div class="exp-section"><div class="exp-title">❌ Tại sao các đáp án khác SAI?</div><div class="exp-text">${q.explanation.wrongReason}</div></div>
+                    </div>
+                `;
+            } else if (q.type === 'gapfill') {
+                let questionProcessed = q.question.replace("[BLANK]", `<span class="gap-blank" id="blank-${q.id}-0" onclick="openGapPopup(${q.id}, 0)">... Chọn từ ...</span>`);
+                
+                card.innerHTML = `
+                    <div class="question-text"><strong>Câu ${index + 1}:</strong> ${questionProcessed}</div>
+                    <div class="explanation-box" id="exp-${q.id}">
+                        <div class="exp-section"><div class="exp-title">🌟 Dịch nghĩa đoạn văn:</div><div class="exp-text">${q.explanation.translation}</div></div>
+                        <div class="exp-section"><div class="exp-title">💎 Phân tích đáp án gợi ý:</div><div class="exp-text">${q.explanation.options}</div></div>
+                        <div class="exp-section"><div class="exp-title">✅ Tại sao đáp án này ĐÚNG?</div><div class="exp-text exp-highlight">${q.explanation.reason}</div></div>
+                        <div class="exp-section"><div class="exp-title">❌ Tại sao các đáp án khác SAI?</div><div class="exp-text">${q.explanation.wrongReason}</div></div>
+                    </div>
+                `;
+            }
+
+            container.appendChild(card);
+        });
+
+        // --- LOGIC XỬ LÝ TRẮC NGHIỆM ABCD ---
+        function selectAbcdOption(btn, qId) {
+            const card = document.getElementById(`card-${qId}`);
+            const buttons = card.querySelectorAll('.option-btn');
+            const isCorrect = btn.getAttribute('data-correct') === 'true';
+
+            buttons.forEach(b => {
+                b.classList.add('disabled');
+                if (b.getAttribute('data-correct') === 'true') {
+                    b.classList.add('correct');
+                }
+            });
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                playSound('correct');
+                createConfetti();
+            } else {
+                btn.classList.add('wrong');
+                card.classList.add('shake');
+                playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+
+            document.getElementById(`exp-${qId}`).classList.add('active');
+            card.setAttribute('data-answered', 'true');
+            card.setAttribute('data-score', isCorrect ? '1' : '0');
+        }
+
+        // --- LOGIC XỬ LÝ GAP FILL (POPUP CHỌN TỪ TỨC THÌ) ---
+        let currentGapQId = null;
+        let currentGapBlankIdx = null;
+
+        function openGapPopup(qId, blankIdx) {
+            const card = document.getElementById(`card-${qId}`);
+            if (card.getAttribute('data-answered') === 'true') return;
+
+            currentGapQId = qId;
+            currentGapBlankIdx = blankIdx;
+            const q = quizData.find(item => item.id === qId);
+            
+            const popupOptionsDiv = document.getElementById('gap-popup-options');
+            popupOptionsDiv.innerHTML = '';
+            
+            // Xáo trộn ngẫu nhiên các lựa chọn hiển thị trong popup chọn từ
+            const shuffledPopupOpts = shuffleOptions(q.popupOptions[blankIdx]);
+
+            shuffledPopupOpts.forEach(optText => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.style.textAlign = 'center';
+                btn.innerText = optText;
+                btn.onclick = function() { selectGapAnswer(optText); };
+                popupOptionsDiv.appendChild(btn);
+            });
+
+            document.getElementById('gap-popup').classList.add('active');
+        }
+
+        function selectGapAnswer(selectedText) {
+            document.getElementById('gap-popup').classList.remove('active');
+            const qId = currentGapQId;
+            const q = quizData.find(item => item.id === qId);
+            const blankEl = document.getElementById(`blank-${qId}-${currentGapBlankIdx}`);
+            const card = document.getElementById(`card-${qId}`);
+            
+            const isCorrect = (selectedText === q.blankAnswers[currentGapBlankIdx]);
+            blankEl.innerText = selectedText;
+
+            if (isCorrect) {
+                blankEl.className = "gap-blank correct";
+                playSound('correct');
+                createConfetti();
+                card.setAttribute('data-score', '1');
+            } else {
+                blankEl.className = "gap-blank wrong";
+                card.classList.add('shake');
+                playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+                card.setAttribute('data-score', '0');
+            }
+
+            document.getElementById(`exp-${qId}`).classList.add('active');
+            card.setAttribute('data-answered', 'true');
+        }
+
+        // Đóng popup lựa chọn khi nhấn ngoài vùng content
+        document.getElementById('gap-popup').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+
+        // --- TÍNH NĂNG CHẤM ĐIỂM TỔNG HỢP & NHẬN XÉT ĐỘNG VIÊN ---
+        function gradeEntireQuiz() {
+            let totalQuestions = quizData.length;
+            let correctCount = 0;
+
+            quizData.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const score = card.getAttribute('data-score');
+                if (score === '1') {
+                    correctCount++;
+                }
+            });
+
+            const percentage = (correctCount / totalQuestions) * 100;
+            const scoreTextText = `${correctCount}/${totalQuestions}`;
+            document.getElementById('score-text').innerText = scoreTextText;
+
+            let comment = "";
+            if (percentage < 50) {
+                comment = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ❤️";
+            } else if (percentage <= 80) {
+                comment = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ✨";
+            } else {
+                comment = "Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha! 🎉🏆";
+            }
+
+            document.getElementById('comment-text').innerText = comment;
+            document.getElementById('result-modal').style.display = 'flex';
+            if (percentage >= 60) {
+                createConfetti();
+                setTimeout(createConfetti, 300);
+            }
+        }
+
+        function CollegeRandom(min, max) { return Math.random() * (max - min) + min; }
+
+        function closeResultModal() {
+            document.getElementById('result-modal').style.display = 'none';
+        }
+
+        // --- HIỆU ỨNG PHÁO GIẤY ĐẸP MẮT (CONFETTI CANVAS EFFECT) ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createConfetti() {
+            for (let i = 0; i < 60; i++) {
+                confettis.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: CollegeRandom(6, 12),
+                    d: Math.random() * canvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+                    tilt: CollegeRandom(-10, 10),
+                    tiltAngleIncremental: CollegeRandom(-0.05, 0.05),
+                    tiltAngle: 0
+                });
+            }
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettis.forEach((c, index) => {
+                c.tiltAngle += c.tiltAngleIncremental;
+                c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+                c.x += Math.sin(c.tiltAngle);
+                c.tilt = Math.sin(c.tiltAngle - index / 3) * 15;
+
+                if (c.y > canvas.height) {
+                    confettis.splice(index, 1);
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.lineWidth = c.r / 2;
+                ctx.strokeStyle = c.color;
+                ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
+                ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
+                ctx.stroke();
+            });
+            requestAnimationFrame(drawConfetti);
+        }
+        drawConfetti();
+    </script>
+</body>
+</html>
